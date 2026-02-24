@@ -15,7 +15,9 @@ val mockitoAgent by configurations.creating
 
 dependencies {
     implementation(libs.spring.boot.starter.webflux)
-    implementation(libs.flyway.core)
+    implementation(libs.spring.boot.starter.jdbc)
+    implementation(libs.spring.boot.starter.flyway)
+    runtimeOnly(libs.flyway.mysql)
     runtimeOnly(libs.mysql.connector.j)
     developmentOnly(libs.spring.boot.docker.compose)
 
