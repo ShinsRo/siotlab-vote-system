@@ -1,6 +1,7 @@
 package com.siotman.vote.campaign.api
 
 import com.siotman.vote.campaign.application.CreateCampaignCommand
+import com.siotman.vote.campaign.application.UpdateCampaignCommand
 import com.siotman.vote.campaign.domain.Campaign
 import com.siotman.vote.campaign.domain.CampaignStatus
 import java.time.LocalDateTime
@@ -19,6 +20,23 @@ data class CreateCampaignRequest(
             startAt = startAt,
             endAt = endAt,
             createdBy = createdBy,
+        )
+    }
+}
+
+data class UpdateCampaignRequest(
+    val name: String,
+    val description: String?,
+    val startAt: LocalDateTime,
+    val endAt: LocalDateTime,
+) {
+    fun toCommand(id: Long): UpdateCampaignCommand {
+        return UpdateCampaignCommand(
+            id = id,
+            name = name,
+            description = description,
+            startAt = startAt,
+            endAt = endAt,
         )
     }
 }

@@ -15,10 +15,13 @@ val mockitoAgent by configurations.creating
 
 dependencies {
     implementation(libs.spring.boot.starter.webflux)
-    implementation(libs.spring.boot.starter.jdbc)
+    implementation(libs.spring.boot.starter.data.r2dbc)
     implementation(libs.spring.boot.starter.flyway)
+    implementation(libs.flyway.core)
+    implementation(libs.kotlin.reflect)
     runtimeOnly(libs.flyway.mysql)
     runtimeOnly(libs.mysql.connector.j)
+    runtimeOnly(libs.r2dbc.mysql)
     developmentOnly(libs.spring.boot.docker.compose)
 
     testImplementation(libs.spring.boot.starter.test)

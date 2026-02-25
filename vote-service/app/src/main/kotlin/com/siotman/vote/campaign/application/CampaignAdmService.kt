@@ -3,27 +3,42 @@ package com.siotman.vote.campaign.application
 import com.siotman.vote.campaign.domain.Campaign
 import com.siotman.vote.campaign.domain.CampaignStatus
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
 @Service
 class CampaignAdmService(
     private val campaignRepository: CampaignRepository,
 ) {
-    fun create(command: CreateCampaignCommand): Campaign {
+    fun create(command: CreateCampaignCommand): Mono<Campaign> {
         val campaign = command.toDomain()
         return campaignRepository.save(campaign)
     }
 
-    fun close(id: Long): Campaign {
-        val campaign = campaignRepository.findByIdOrThrow(id)
-        val closed = campaign.close(LocalDateTime.now())
-        return campaignRepository.save(closed)
+    fun close(id: Long): Mono<Campaign> {
+        return campaignRepository.findByIdOrThrow(id)
+            .map { it.close(LocalDateTime.now()) }
+            .flatMap { campaignRepository.save(it) }
     }
 
-    fun activate(id: Long): Campaign {
-        val campaign = campaignRepository.findByIdOrThrow(id)
-        val activated = campaign.activate(LocalDateTime.now())
-        return campaignRepository.save(activated)
+    fun activate(id: Long): Mono<Campaign> {
+        return campaignRepository.findByIdOrThrow(id)
+            .map { it.activate(LocalDateTime.now()) }
+            .flatMap { campaignRepository.save(it) }
+    }
+
+    fun update(command: UpdateCampaignCommand): Mono<Campaign> {
+        return campaignRepository.findByIdOrThrow(command.id)
+            .map {
+                it.update(
+                    name = command.name,
+                    description = command.description,
+                    startAt = command.startAt,
+                    endAt = command.endAt,
+                    updatedAt = LocalDateTime.now(),
+                )
+            }
+            .flatMap { campaignRepository.save(it) }
     }
 
     fun CreateCampaignCommand.toDomain(now: LocalDateTime = LocalDateTime.now()): Campaign {
@@ -40,7 +55,8 @@ class CampaignAdmService(
         )
     }
 
-    fun CampaignRepository.findByIdOrThrow(id: Long): Campaign {
-        return findById(id) ?: throw CampaignNotFoundException(id)
+    fun CampaignRepository.findByIdOrThrow(id: Long): Mono<Campaign> {
+        return findById(id)
+            .switchIfEmpty(Mono.error(CampaignNotFoundException(id)))
     }
 }

@@ -15,13 +15,14 @@ class CampaignReadController(
 ) {
     @GetMapping("/{id}")
     fun get(@PathVariable id: Long): Mono<CampaignResponse> {
-        val campaign = campaignReadService.getById(id)
-        return Mono.just(CampaignResponse.from(campaign))
+        return campaignReadService.getById(id)
+            .map(CampaignResponse::from)
     }
 
     // TODO: 조건 기반 조회로 확장
     @GetMapping
     fun list(): Flux<CampaignResponse> {
-        return Flux.fromIterable(campaignReadService.getAll().map(CampaignResponse::from))
+        return campaignReadService.getAll()
+            .map(CampaignResponse::from)
     }
 }

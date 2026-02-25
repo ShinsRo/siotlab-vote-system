@@ -19,19 +19,28 @@ class CampaignAdmController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody request: CreateCampaignRequest): Mono<CampaignResponse> {
-        val created = campaignAdmService.create(request.toCommand())
-        return Mono.just(CampaignResponse.from(created))
+        return campaignAdmService.create(request.toCommand())
+            .map(CampaignResponse::from)
     }
 
     @PatchMapping("/{id}/close")
     fun close(@PathVariable id: Long): Mono<CampaignResponse> {
-        val closed = campaignAdmService.close(id)
-        return Mono.just(CampaignResponse.from(closed))
+        return campaignAdmService.close(id)
+            .map(CampaignResponse::from)
     }
 
     @PatchMapping("/{id}/activate")
     fun activate(@PathVariable id: Long): Mono<CampaignResponse> {
-        val activated = campaignAdmService.activate(id)
-        return Mono.just(CampaignResponse.from(activated))
+        return campaignAdmService.activate(id)
+            .map(CampaignResponse::from)
+    }
+
+    @PatchMapping("/{id}")
+    fun update(
+        @PathVariable id: Long,
+        @RequestBody request: UpdateCampaignRequest,
+    ): Mono<CampaignResponse> {
+        return campaignAdmService.update(request.toCommand(id))
+            .map(CampaignResponse::from)
     }
 }
