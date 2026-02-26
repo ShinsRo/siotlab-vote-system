@@ -55,7 +55,7 @@ data class CampaignResponse(
     companion object {
         fun from(campaign: Campaign): CampaignResponse {
             return CampaignResponse(
-                id = requireNotNull(campaign.id) { "캠페인 ID는 null일 수 없습니다." },
+                id = checkNotNull(campaign.id) { "캠페인 ID는 null일 수 없습니다." },
                 name = campaign.name,
                 description = campaign.description,
                 startAt = campaign.startAt,

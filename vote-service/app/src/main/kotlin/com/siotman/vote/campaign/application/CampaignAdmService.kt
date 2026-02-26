@@ -41,7 +41,7 @@ class CampaignAdmService(
             .flatMap { campaignRepository.save(it) }
     }
 
-    fun CreateCampaignCommand.toDomain(now: LocalDateTime = LocalDateTime.now()): Campaign {
+    private fun CreateCampaignCommand.toDomain(now: LocalDateTime = LocalDateTime.now()): Campaign {
         return Campaign(
             id = null,
             name = name,
@@ -55,7 +55,7 @@ class CampaignAdmService(
         )
     }
 
-    fun CampaignRepository.findByIdOrThrow(id: Long): Mono<Campaign> {
+    private fun CampaignRepository.findByIdOrThrow(id: Long): Mono<Campaign> {
         return findById(id)
             .switchIfEmpty(Mono.error(CampaignNotFoundException(id)))
     }

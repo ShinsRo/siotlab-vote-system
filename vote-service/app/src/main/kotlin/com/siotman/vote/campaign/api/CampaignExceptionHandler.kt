@@ -12,13 +12,13 @@ class CampaignExceptionHandler {
     fun handleNotFound(ex: CampaignNotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .body(ErrorResponse(message = ex.message ?: "캠페인을 찾을 수 없습니다."))
+            .body(ErrorResponse(message = "캠페인을 찾을 수 없습니다."))
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleBadRequest(ex: IllegalArgumentException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
-            .body(ErrorResponse(message = ex.message ?: "잘못된 요청입니다."))
+            .body(ErrorResponse(message = "잘못된 요청입니다."))
     }
 }
