@@ -4,6 +4,7 @@ spring-dependency-management = "1.1.7"
 kotlin = "2.1.20"
 reactor = "3.8.2"
 flyway = "11.20.3"
+springdoc = "2.8.13"
 
 # CVE-2026-24400 대응:
 # spring-boot-starter-test(4.0.2)의 전이 의존성 assertj-core 3.27.6 취약점으로 패치 버전을 강제한다.
@@ -13,6 +14,7 @@ mockito = "5.20.0"
 
 [libraries]
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring-boot" }
+springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
 spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "spring-boot" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway", version.ref = "spring-boot" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

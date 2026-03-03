@@ -14,6 +14,7 @@ java {
 dependencies {
     implementation(project(":core"))
     implementation(libs.spring.boot.starter.webflux)
+    implementation(libs.springdoc.openapi.starter.webflux.ui)
     developmentOnly(libs.spring.boot.docker.compose)
 
     testImplementation(libs.spring.boot.starter.test)
