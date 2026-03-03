@@ -1,42 +1,58 @@
 # Vote Service
 
-## 역할
-- 투표 이벤트/후보 관리
-- 투표 처리 및 정책 검증
-- 결과 집계 및 랭킹 조회
+WebFlux + R2DBC 기반의 투표 도메인 서비스.
 
-## 요구사항 (상세)
-### Functional
-- Vote Campaign
-  - 생성/수정/종료/조회
-  - 기간 설정, 상태 전이(DRAFT → ACTIVE → ENDED)
-- Vote Event
-  - 캠페인 하위 이벤트 관리(기간/이름/설명)
-  - 캠페인 없이 단독 이벤트 생성 가능
-  - 투표 정책 연결
-- Candidate
-  - 재사용 가능한 후보 관리(이미지 URL 포함)
-- Voting
-  - 후보 투표 처리
-  - 투표 정책 검증(인증 필요 여부, 1인1표, 1일1표, 쿨다운 등)
-  - 투표자 식별: JWT `subject`를 `userId`로 사용(인증 사용자/익명 모두 동일 키)
-- Ranking/Result
-  - 이벤트별 집계 조회
-  - 랭킹 출력(동점 처리 방식 정의 필요)
+## 모듈 구조
+- `core`: 도메인, 유스케이스(`ReadService`, `WriteService`), Repository Adapter
+- `adm`: 쓰기(Admin) API 애플리케이션 및 컨트롤러/DTO/예외 처리
+- `api`: 읽기(Public) API 애플리케이션 및 컨트롤러/DTO/예외 처리
 
-### Non-functional
-- 중복 투표 방지(정책에 따라 다름)
-- 높은 동시성에서 일관성 보장(락/원자 카운터/트랜잭션 전략)
-- 관측 가능성(로그/메트릭)
-- 장애 복원/격리(후속)
+## 실행 포트
+- `adm`: `8089`
+- `api`: `8088`
 
-## TODO
-- [ ] 도메인 모델 설계
-- [ ] 투표 중복 방지 정책 구현
-- [ ] 집계 방식(realtime/hourly/daily) 스펙 확정
+## 프로젝트 구조
+```text
+vote-service
+├── settings.gradle.kts
+├── build.gradle.kts
+├── gradle/libs.versions.toml
+├── core
+│   ├── build.gradle.kts
+│   └── src
+│       ├── main/kotlin/com/siotman/vote/core
+│       │   ├── CoreBasePackage.kt
+│       │   ├── campaign/{application, domain, infra}
+│       │   ├── candidate/{application, domain, infra}
+│       │   ├── policy/{application, domain, infra}
+│       │   └── voteevent/{application, domain, infra}
+│       ├── main/resources/db/migration
+│       └── test/kotlin/com/siotman/vote/core
+├── adm
+│   ├── build.gradle.kts
+│   └── src/main
+│       ├── kotlin/com/siotman/vote/adm
+│       │   ├── VoteAdmSpringApplication.kt
+│       │   ├── campaign/
+│       │   ├── candidate/
+│       │   ├── policy/
+│       │   └── voteevent/
+│       └── resources/application.yml
+└── api
+    ├── build.gradle.kts
+    └── src/main
+        ├── kotlin/com/siotman/vote/api
+        │   ├── VoteApiSpringApplication.kt
+        │   ├── campaign/
+        │   ├── candidate/
+        │   ├── policy/
+        │   └── voteevent/
+        └── resources/application.yml
+```
 
-## TODO: 집계 스펙 상세
-- [ ] realtime: 즉시 집계
-- [ ] hourly: 시간 단위 스냅샷
-- [ ] daily: 일 단위 스냅샷
-- [ ] 어떤 방식이 MVP인지 확정 필요
+## 개발 명령어
+```bash
+./gradlew clean test
+./gradlew :adm:bootRun
+./gradlew :api:bootRun
+```

@@ -1,76 +1,24 @@
-# Side Project: Vote System (투표 시스템)
+# SIOTLAB Vote System
 
-투표 이벤트를 생성/운영하고, 대상(후보)에 대한 투표 및 랭킹을 제공하는 시스템.
+투표 캠페인/이벤트/후보/정책을 관리하고 조회하는 백엔드 프로젝트.
 
-## Architecture
+## 구성
+- `gateway`: API 게이트웨이(TBD)
+- `vote-service`: 핵심 도메인 서비스(멀티 모듈)
 
-- Gateway
-  - Authentication
-  - Routing
-  - Rate limiting
-  - (Optinal) Circuit breaking
-- Vote Service
-- Vote event management (기간/이름/투표 정책)
-  - Ranking management
-  - Redis 등 외부 컴포넌트 포함하여 추후 확장(캐시/락/큐/집계 에 대한 STEP2)
-- DB (MySQL)
-  - Candidate(투표 대상) 데이터 관리
-  - Vote result(투표 결과) 데이터 관리
-
-> 세부 설계/정책은 각 컴포넌트 폴더의 README.md에서 다룬다.
-> - `gateway/README.md`
-> - `vote-service/README.md`
-
-## Repository Structure
-```
-├─ gateway/
-│  └─ README.md
-├─ vote-service/
-│  └─ README.md
-├─ db/
-│  ├─ schema/
-│  └─ README.md
-└─ README.md
+## 저장소 구조
+```text
+siolab-vote-system
+├── gateway/
+│   └── README.md
+├── vote-service/
+│   ├── README.md
+│   ├── adm/    # 쓰기(Admin) API
+│   ├── api/    # 읽기(Public) API
+│   └── core/   # 도메인/유스케이스/인프라
+└── README.md
 ```
 
-## Key Concepts (용어)
-
-- Candidate: 투표 대상(후보)
-- Vote Event: 특정 기간 동안 진행되는 투표 이벤트
-- Vote Campaign: Event 의 상위 기획 단위
-- Vote Policy: 투표 정책(인증 필요 여부, 1인 1표/일일 1표 등)
-- Ranking: 집계된 결과를 기준으로 한 순위(이벤트별 등)
-
-## Requirements (High-level)
-
-### Functional
-- 투표 이벤트 생성/조회/수정/종료(기간 관리)
-- 이벤트 내 후보에 대한 투표
-- 투표 정책에 따른 투표 허용/차단
-- 결과 집계 및 랭킹 조회 (TODO: 추후 분리)
-
-### Non-functional
-- 높은 동시성에서 중복 투표 방지 및 일관성 보장(정책에 따라 다름)
-- 안정적인 트래픽 제어(레이트 리밋, 서킷 브레이킹)
-- 장애 격리(게이트웨이/서비스/DB/Redis)
-- 관측 가능성(로그/메트릭/트레이싱) - TODO
-
-## Interfaces (Draft)
-
-- External clients -> Gateway -> Vote Service
-- Vote Service -> MySQL
-- Vote Service -> Redis (캐시/락/집계/큐 용도) - TODO
-
-## Documentation
-
-- Gateway details: `gateway/README.md`
-- Vote service details: `vote-service/README.md`
-- Database schema: `db/README.md` + `db/schema/`
-
-## TODO
-- API 스펙(엔드포인트/요청/응답/에러코드)
-- 데이터 모델(테이블/인덱스)
-- 투표 정책 정의(1인1표, 1일1표, 중복방지 키 등)
-- 랭킹 산정 방식(실시간/배치, 스코어 정의)
-- Redis 사용 목적 확정(락/카운터/캐시/스트림 등)
-- 운영 요구사항(모니터링, 알림, 배포, 롤백)
+## 문서
+- Gateway: `gateway/README.md`
+- Vote Service: `vote-service/README.md`
