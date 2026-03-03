@@ -3,4 +3,4 @@ plugins {
 }
 
 rootProject.name = "vote-service"
-include("app")
+include("core", "adm", "api")
