@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:8089
+@voteEventId = 1
+@campaignId = 1
+@policyId = 1
+
+### 투표 이벤트 생성
+POST {{baseUrl}}/api/v1/adm/vote-events
+Content-Type: application/json
+
+{
+  "campaignId": {{campaignId}},
+  "policyId": {{policyId}},
+  "name": "학생회장 투표",
+  "description": "2026 봄 학생회장 선출",
+  "startAt": "2026-03-16T09:00:00",
+  "endAt": "2026-03-20T18:00:00",
+  "createdBy": "admin"
+}
+
+### 투표 이벤트 수정
+PATCH {{baseUrl}}/api/v1/adm/vote-events/{{voteEventId}}
+Content-Type: application/json
+
+{
+  "name": "학생회장 투표 수정",
+  "description": "2026 봄 학생회장 선출 일정 수정",
+  "startAt": "2026-03-16T10:00:00",
+  "endAt": "2026-03-21T18:00:00"
+}
+
+### 투표 이벤트 활성화
+PATCH {{baseUrl}}/api/v1/adm/vote-events/{{voteEventId}}/activate
+
+### 투표 이벤트 종료
+PATCH {{baseUrl}}/api/v1/adm/vote-events/{{voteEventId}}/close

@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:8089
+@candidateId = 1
+
+### 후보 생성
+POST {{baseUrl}}/api/v1/adm/candidates
+Content-Type: application/json
+
+{
+  "name": "김후보",
+  "description": "기호 1번 후보",
+  "imageUrl": "https://example.com/candidates/1.png"
+}
+
+### 후보 수정
+PATCH {{baseUrl}}/api/v1/adm/candidates/{{candidateId}}
+Content-Type: application/json
+
+{
+  "name": "김후보 수정",
+  "description": "기호 1번 후보 소개 수정",
+  "imageUrl": "https://example.com/candidates/1-updated.png"
+}
+
+### 후보 삭제
+DELETE {{baseUrl}}/api/v1/adm/candidates/{{candidateId}}

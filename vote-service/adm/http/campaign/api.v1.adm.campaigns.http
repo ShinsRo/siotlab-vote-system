@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:8089
+@campaignId = 1
+
+### 캠페인 생성
+POST {{baseUrl}}/api/v1/adm/campaigns
+Content-Type: application/json
+
+{
+  "name": "2026 봄 정기 선거",
+  "description": "학생회 정기 선거 캠페인",
+  "startAt": "2026-03-15T09:00:00",
+  "endAt": "2026-03-20T18:00:00",
+  "createdBy": "admin"
+}
+
+### 캠페인 수정
+PATCH {{baseUrl}}/api/v1/adm/campaigns/{{campaignId}}
+Content-Type: application/json
+
+{
+  "name": "2026 봄 정기 선거 수정안",
+  "description": "학생회 정기 선거 캠페인 수정",
+  "startAt": "2026-03-15T10:00:00",
+  "endAt": "2026-03-21T18:00:00"
+}
+
+### 캠페인 활성화
+PATCH {{baseUrl}}/api/v1/adm/campaigns/{{campaignId}}/activate
+
+### 캠페인 종료
+PATCH {{baseUrl}}/api/v1/adm/campaigns/{{campaignId}}/close
