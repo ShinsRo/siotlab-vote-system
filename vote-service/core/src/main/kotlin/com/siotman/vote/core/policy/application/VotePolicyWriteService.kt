@@ -1,6 +1,7 @@
 package com.siotman.vote.core.policy.application
 
 import com.siotman.vote.core.policy.domain.VotePolicy
+import com.siotman.vote.core.policy.domain.spec.VotePolicySpecSerde
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
@@ -14,8 +15,7 @@ class VotePolicyWriteService(
         val votePolicy = VotePolicy(
             id = null,
             name = command.name,
-            type = command.type,
-            params = command.params,
+            spec = VotePolicySpecSerde.deserialize(command.type, command.params),
             createdAt = now,
             updatedAt = now,
         )
@@ -27,8 +27,7 @@ class VotePolicyWriteService(
             .map {
                 it.update(
                     name = command.name,
-                    type = command.type,
-                    params = command.params,
+                    spec = VotePolicySpecSerde.deserialize(command.type, command.params),
                     updatedAt = LocalDateTime.now(),
                 )
             }

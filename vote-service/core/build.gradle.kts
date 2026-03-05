@@ -20,6 +20,10 @@ dependencies {
     api(libs.spring.boot.starter.webflux)
     api(libs.spring.boot.starter.data.r2dbc)
     api(libs.spring.boot.starter.flyway)
+    api(libs.jackson.module.kotlin)
+    api(libs.jackson.datatype.jsr310)
+    api(libs.jsonschema.generator)
+    api(libs.jsonschema.module.jackson)
     api(libs.flyway.core)
     api(libs.kotlin.reflect)
 

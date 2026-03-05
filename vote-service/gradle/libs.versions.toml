@@ -5,6 +5,8 @@ kotlin = "2.1.20"
 reactor = "3.8.2"
 flyway = "11.20.3"
 springdoc = "2.8.13"
+jackson = "2.20.0"
+jsonschema-generator = "4.38.0"
 
 # CVE-2026-24400 대응:
 # spring-boot-starter-test(4.0.2)의 전이 의존성 assertj-core 3.27.6 취약점으로 패치 버전을 강제한다.
@@ -17,6 +19,10 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
 spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "spring-boot" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway", version.ref = "spring-boot" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+jsonschema-generator = { module = "com.github.victools:jsonschema-generator", version.ref = "jsonschema-generator" }
+jsonschema-module-jackson = { module = "com.github.victools:jsonschema-module-jackson", version.ref = "jsonschema-generator" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }

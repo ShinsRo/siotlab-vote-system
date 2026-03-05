@@ -2,6 +2,7 @@ package com.siotman.vote.core.policy.support
 
 import com.siotman.vote.core.policy.application.VotePolicyRepository
 import com.siotman.vote.core.policy.domain.VotePolicy
+import com.siotman.vote.core.policy.domain.spec.VotePolicySpecSerde
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.concurrent.ConcurrentHashMap
@@ -16,8 +17,7 @@ class TestVotePolicyRepository : VotePolicyRepository {
             VotePolicy(
                 id = sequence.incrementAndGet(),
                 name = votePolicy.name,
-                type = votePolicy.type,
-                params = votePolicy.params,
+                spec = VotePolicySpecSerde.deserialize(votePolicy.type, votePolicy.params),
                 createdAt = votePolicy.createdAt,
                 updatedAt = votePolicy.updatedAt,
             )

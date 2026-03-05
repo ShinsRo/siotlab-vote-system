@@ -1,6 +1,7 @@
 package com.siotman.vote.core.policy.infra
 
 import com.siotman.vote.core.policy.domain.VotePolicy
+import com.siotman.vote.core.policy.domain.spec.VotePolicySpecSerde
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
@@ -25,8 +26,7 @@ data class VotePolicyR2dbcEntity(
         return VotePolicy(
             id = id,
             name = name,
-            type = type,
-            params = params,
+            spec = VotePolicySpecSerde.deserialize(type, params),
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
