@@ -23,6 +23,7 @@ jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-
 jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 jsonschema-generator = { module = "com.github.victools:jsonschema-generator", version.ref = "jsonschema-generator" }
 jsonschema-module-jackson = { module = "com.github.victools:jsonschema-module-jackson", version.ref = "jsonschema-generator" }
+netty-resolver-dns-native-macos = { module = "io.netty:netty-resolver-dns-native-macos" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
