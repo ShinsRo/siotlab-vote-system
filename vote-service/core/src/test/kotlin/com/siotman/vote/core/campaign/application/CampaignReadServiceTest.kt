@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters")
+
 package com.siotman.vote.core.campaign.application
 
 import com.siotman.vote.core.campaign.support.TestCampaignRepository

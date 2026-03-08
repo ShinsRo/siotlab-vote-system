@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters")
+
 package com.siotman.vote.core.policy.domain.spec
 
 import org.assertj.core.api.Assertions.assertThat

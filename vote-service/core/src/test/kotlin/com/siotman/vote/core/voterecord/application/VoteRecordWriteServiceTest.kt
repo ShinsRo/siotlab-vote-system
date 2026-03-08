@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters")
+
 package com.siotman.vote.core.voterecord.application
 
 import com.siotman.vote.core.policy.application.VotePolicyReadService
