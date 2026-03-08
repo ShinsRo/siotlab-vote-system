@@ -1,13 +1,14 @@
 package com.siotman.vote.core.voterecord.application
 
+import com.siotman.vote.core.voterecord.domain.VoteRecord
 import com.siotman.vote.core.voterecord.support.TestVoteRecordRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 
 class VoteRecordReadServiceTest {
     private val voteRecordRepository = TestVoteRecordRepository()
-    private val voteRecordWriteService = VoteRecordWriteService(voteRecordRepository)
     private val voteRecordReadService = VoteRecordReadService(voteRecordRepository)
 
     @Test
@@ -18,19 +19,29 @@ class VoteRecordReadServiceTest {
 
     @Test
     fun `이벤트와 사용자 기준으로 투표 기록을 조회할 수 있다`() {
-        voteRecordWriteService.create(
-            CreateVoteRecordCommand(
-                eventId = 1L,
-                candidateIds = listOf(10L, 20L),
-                userId = "user-1",
-            ),
-        ).collectList().block()!!
-
-        voteRecordWriteService.create(
-            CreateVoteRecordCommand(
-                eventId = 1L,
-                candidateIds = listOf(30L),
-                userId = "user-2",
+        voteRecordRepository.saveAll(
+            listOf(
+                VoteRecord(
+                    id = null,
+                    eventId = 1L,
+                    candidateId = 10L,
+                    userId = "user-1",
+                    votedAt = LocalDateTime.of(2026, 3, 10, 18, 0, 0),
+                ),
+                VoteRecord(
+                    id = null,
+                    eventId = 1L,
+                    candidateId = 20L,
+                    userId = "user-1",
+                    votedAt = LocalDateTime.of(2026, 3, 10, 18, 0, 0),
+                ),
+                VoteRecord(
+                    id = null,
+                    eventId = 1L,
+                    candidateId = 30L,
+                    userId = "user-2",
+                    votedAt = LocalDateTime.of(2026, 3, 10, 18, 1, 0),
+                ),
             ),
         ).collectList().block()!!
 
