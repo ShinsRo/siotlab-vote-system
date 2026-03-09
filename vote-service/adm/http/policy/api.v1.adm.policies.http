@@ -6,9 +6,9 @@ POST {{baseUrl}}/api/v1/adm/policies
 Content-Type: application/json
 
 {
-  "name": "찬반 투표 정책(기권허용)",
-  "type": "YesNoPolicy",
-  "params": "{\"allowAbstain\":true}"
+  "name": "단일 선택 정책",
+  "type": "SingleChoicePolicy",
+  "params": "{}"
 }
 
 ### 투표 정책 수정
@@ -18,7 +18,7 @@ Content-Type: application/json
 {
   "name": "복합 투표 정책",
   "type": "CompositePolicy",
-  "params": "{\"policies\":[{\"type\":\"YesNoPolicy\",\"params\":{\"allowAbstain\":true}},{\"type\":\"MultipleChoicePolicy\",\"params\":{\"minChoices\":1,\"maxChoices\":2}}]}"
+  "params": "{\"policies\":[{\"type\":\"SingleChoicePolicy\",\"params\":{}},{\"type\":\"MultipleChoicePolicy\",\"params\":{\"minChoices\":1,\"maxChoices\":2}}]}"
 }
 
 ### 투표 정책 삭제

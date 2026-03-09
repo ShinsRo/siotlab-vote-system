@@ -7,7 +7,6 @@ object VotePolicySpecSerde {
         ChoicePolicy::class.java,
         SingleChoicePolicy::class.java,
         MultipleChoicePolicy::class.java,
-        YesNoPolicy::class.java,
         CompositePolicy::class.java,
     ).associateBy { requireNotNull(it.simpleName) { "정책 타입 simpleName은 null일 수 없습니다." } }
 

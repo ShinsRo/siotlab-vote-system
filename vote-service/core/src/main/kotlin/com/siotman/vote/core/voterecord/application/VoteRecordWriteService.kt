@@ -6,7 +6,6 @@ import com.siotman.vote.core.policy.domain.spec.CompositePolicy
 import com.siotman.vote.core.policy.domain.spec.PolicyEntry
 import com.siotman.vote.core.policy.domain.spec.SingleChoicePolicy
 import com.siotman.vote.core.policy.domain.spec.VotePolicySpec
-import com.siotman.vote.core.policy.domain.spec.YesNoPolicy
 import com.siotman.vote.core.voteevent.application.VoteEventReadService
 import com.siotman.vote.core.voteevent.domain.VoteEventStatus
 import com.siotman.vote.core.voterecord.domain.VoteRecord
@@ -90,7 +89,6 @@ class VoteRecordWriteService(
         when (spec) {
             is SingleChoicePolicy -> validateChoiceCount(candidateIds, spec)
             is ChoicePolicy -> validateChoiceCount(candidateIds, spec)
-            is YesNoPolicy -> require(candidateIds.size == 1) { "찬반 투표는 하나의 선택만 가능합니다." }
             is CompositePolicy -> spec.policies
                 .map(PolicyEntry::toSpec)
                 .forEach { validateVotePolicy(it, candidateIds) }
