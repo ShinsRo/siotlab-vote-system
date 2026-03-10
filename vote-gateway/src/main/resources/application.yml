@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: vote-gateway
+  docker.compose:
+    file: docker-local/compose.yaml
+    lifecycle-management: start-only
+  cloud.gateway:
+      server.webflux:
+          routes:
+            - id: vote-api
+              uri: ${VOTE_API_URI:http://localhost:8088}
+              predicates:
+                - Path=/vote-api/**
+              filters:
+                - StripPrefix=1
+            - id: vote-adm
+              uri: ${VOTE_ADM_URI:http://localhost:8089}
+              predicates:
+                - Path=/vote-adm/**
+              filters:
+                - StripPrefix=1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      probes:
+        enabled: true

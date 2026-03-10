@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: vote-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vote
+    volumes:
+      - vote-mysql-data:/var/lib/mysql
+
+  vote-api:
+    image: vote-api
+    container_name: vote-api
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vote
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_R2DBC_URL: r2dbc:mysql://mysql:3306/vote
+      SPRING_R2DBC_USERNAME: root
+      SPRING_R2DBC_PASSWORD: root
+    depends_on:
+      - mysql
+
+  vote-adm:
+    image: vote-adm
+    container_name: vote-adm
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vote
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_R2DBC_URL: r2dbc:mysql://mysql:3306/vote
+      SPRING_R2DBC_USERNAME: root
+      SPRING_R2DBC_PASSWORD: root
+    depends_on:
+      - mysql
+
+volumes:
+  vote-mysql-data:
