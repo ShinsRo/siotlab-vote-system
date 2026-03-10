@@ -1,7 +1,8 @@
+name: vote-service-local
+
 services:
   mysql:
     image: mysql:8.4
-    container_name: vote-mysql
     ports:
       - "3306:3306"
     environment:
