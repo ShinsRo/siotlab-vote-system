@@ -1,38 +1,7 @@
 package com.siotman.vote.api.candidate
 
-import com.siotman.vote.core.candidate.application.CreateCandidateCommand
-import com.siotman.vote.core.candidate.application.UpdateCandidateCommand
 import com.siotman.vote.core.candidate.domain.Candidate
 import java.time.LocalDateTime
-
-data class CreateCandidateRequest(
-    val name: String,
-    val description: String?,
-    val imageUrl: String?,
-) {
-    fun toCommand(): CreateCandidateCommand {
-        return CreateCandidateCommand(
-            name = name,
-            description = description,
-            imageUrl = imageUrl,
-        )
-    }
-}
-
-data class UpdateCandidateRequest(
-    val name: String,
-    val description: String?,
-    val imageUrl: String?,
-) {
-    fun toCommand(id: Long): UpdateCandidateCommand {
-        return UpdateCandidateCommand(
-            id = id,
-            name = name,
-            description = description,
-            imageUrl = imageUrl,
-        )
-    }
-}
 
 data class CandidateResponse(
     val id: Long,

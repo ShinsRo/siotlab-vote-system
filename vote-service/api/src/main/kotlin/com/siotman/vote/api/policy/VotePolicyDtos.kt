@@ -1,38 +1,7 @@
 package com.siotman.vote.api.policy
 
-import com.siotman.vote.core.policy.application.CreateVotePolicyCommand
-import com.siotman.vote.core.policy.application.UpdateVotePolicyCommand
 import com.siotman.vote.core.policy.domain.VotePolicy
 import java.time.LocalDateTime
-
-data class CreateVotePolicyRequest(
-    val name: String,
-    val type: String,
-    val params: String,
-) {
-    fun toCommand(): CreateVotePolicyCommand {
-        return CreateVotePolicyCommand(
-            name = name,
-            type = type,
-            params = params,
-        )
-    }
-}
-
-data class UpdateVotePolicyRequest(
-    val name: String,
-    val type: String,
-    val params: String,
-) {
-    fun toCommand(id: Long): UpdateVotePolicyCommand {
-        return UpdateVotePolicyCommand(
-            id = id,
-            name = name,
-            type = type,
-            params = params,
-        )
-    }
-}
 
 data class VotePolicyResponse(
     val id: Long,
