@@ -8,6 +8,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: vote
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     volumes:
       - vote-mysql-data:/var/lib/mysql
 
@@ -16,6 +22,9 @@ services:
     ports:
       - "8088:8088"
     environment:
+      SPRING_FLYWAY_URL: jdbc:mysql://mysql:3306/vote
+      SPRING_FLYWAY_USER: root
+      SPRING_FLYWAY_PASSWORD: root
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vote
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
@@ -23,13 +32,17 @@ services:
       SPRING_R2DBC_USERNAME: root
       SPRING_R2DBC_PASSWORD: root
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   vote-adm:
     image: vote-adm
     ports:
       - "8089:8089"
     environment:
+      SPRING_FLYWAY_URL: jdbc:mysql://mysql:3306/vote
+      SPRING_FLYWAY_USER: root
+      SPRING_FLYWAY_PASSWORD: root
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vote
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
@@ -37,7 +50,8 @@ services:
       SPRING_R2DBC_USERNAME: root
       SPRING_R2DBC_PASSWORD: root
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
 volumes:
   vote-mysql-data:
