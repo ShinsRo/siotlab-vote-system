@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:8080
+
+### 게이트웨이 경유 관리자용 캠페인 생성
+POST {{baseUrl}}/vote-adm/api/v1/adm/campaigns
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "2026 학생회장 선거",
+  "description": "게이트웨이 경유 관리자 API 호출 예시"
+}

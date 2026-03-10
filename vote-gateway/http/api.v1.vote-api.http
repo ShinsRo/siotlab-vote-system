@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:8080
+@campaignId = 1
+
+### 게이트웨이 경유 캠페인 목록 조회
+GET {{baseUrl}}/vote-api/api/v1/campaigns
+Accept: application/json
+
+### 게이트웨이 경유 캠페인 단건 조회
+GET {{baseUrl}}/vote-api/api/v1/campaigns/{{campaignId}}
+Accept: application/json
