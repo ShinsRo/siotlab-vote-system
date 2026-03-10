@@ -27,6 +27,7 @@ class VoteRecordWriteServiceTest {
         voteRecordRepository = voteRecordRepository,
         voteEventReadService = VoteEventReadService(voteEventRepository),
         votePolicyReadService = VotePolicyReadService(votePolicyRepository),
+        voteRecordValidateService = VoteRecordValidateService(voteRecordRepository),
         voteEventCandidateRepository = voteEventCandidateRepository,
     )
 

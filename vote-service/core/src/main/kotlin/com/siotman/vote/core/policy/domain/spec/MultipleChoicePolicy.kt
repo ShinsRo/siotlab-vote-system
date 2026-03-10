@@ -9,7 +9,6 @@ class MultipleChoicePolicy(
     override fun validateSpec() {
         super.validateSpec()
     }
-
     companion object : VotePolicySpecMeta<MultipleChoicePolicy> {
         override val type: String = MultipleChoicePolicy::class.simpleName ?: "MultipleChoicePolicy"
         override val jsonSchema: String by lazy { CoreJson.jsonSchema(MultipleChoicePolicy::class.java) }

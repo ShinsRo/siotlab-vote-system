@@ -5,7 +5,7 @@ import com.siotman.vote.core.common.json.CoreJson
 
 data class CompositePolicy(
     val policies: List<PolicyEntry>,
-) : VotePolicySpec {
+) : VotePolicySpec() {
     override fun validateSpec() {
         require(policies.isNotEmpty()) { "policies는 비어 있을 수 없습니다." }
         policies

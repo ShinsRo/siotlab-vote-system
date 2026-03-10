@@ -1,7 +1,7 @@
 package com.siotman.vote.core.policy.domain.spec
 
-interface VotePolicySpec {
-    fun validateSpec()
+sealed class VotePolicySpec {
+    abstract fun validateSpec()
 }
 
 interface VotePolicySpecMeta<T : VotePolicySpec> {
