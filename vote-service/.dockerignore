@@ -1,0 +1,8 @@
+.git
+.gradle
+.kotlin
+build
+*/build
+docker-local
+*.iml
+out

@@ -41,3 +41,7 @@ dependencies {
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+    imageName.set("vote-adm")
+}

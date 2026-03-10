@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1.7
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /workspace
+
+COPY gradlew gradlew
+COPY gradlew.bat gradlew.bat
+COPY gradle gradle
+COPY settings.gradle.kts build.gradle.kts gradle.properties ./
+
+# Gradle 의존성 파일 복사
+COPY core/build.gradle.kts core/build.gradle.kts
+COPY api/build.gradle.kts api/build.gradle.kts
+COPY adm/build.gradle.kts adm/build.gradle.kts
+
+# Gradle 캐시를 미리 로드
+RUN chmod +x ./gradlew
+RUN --mount=type=cache,target=/root/.gradle \
+    ./gradlew :api:dependencies :adm:dependencies --no-daemon
+
+COPY core core
+COPY api api
+COPY adm adm

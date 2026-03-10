@@ -30,7 +30,6 @@ class VoteRecordWriteService(
             votePolicyReadService.getById(voteEvent.policyId)
         }
 
-
         val validateInput = getVotePolicy.zipWith(getCandidateIdsInEvent.collectList()).flatMap { tuple ->
             val voteEvent = tuple.t1.t1
             val votePolicy = tuple.t1.t2
