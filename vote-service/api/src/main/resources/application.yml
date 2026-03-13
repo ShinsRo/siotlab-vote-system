@@ -18,5 +18,16 @@ spring:
     username: root
     password: root
 
+management:
+  endpoints:
+    web:
+      base-path: /mgmt
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
 #logging:
 #  level:

@@ -21,6 +21,7 @@ fun nettyMacOsClassifier(): String = when {
 
 dependencies {
     implementation(project(":core"))
+    implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.webflux)
     implementation(libs.springdoc.openapi.starter.webflux.ui)
     if (isMacOs()) {

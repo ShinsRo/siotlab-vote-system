@@ -26,8 +26,9 @@ spring:
 management:
   endpoints:
     web:
+      base-path: /mgmt
       exposure:
-        include: health,info,gateway
+        include: health,info,metrics,gateway
   endpoint:
     health:
       probes:

@@ -1,9 +1,9 @@
 @baseUrl = http://localhost:8080
 
 ### 게이트웨이 헬스 체크
-GET {{baseUrl}}/actuator/health
+GET {{baseUrl}}/mgmt/health
 Accept: application/json
 
 ### 게이트웨이 라우트 목록 확인
-GET {{baseUrl}}/actuator/gateway/routes
+GET {{baseUrl}}/mgmt/gateway/routes
 Accept: application/json
