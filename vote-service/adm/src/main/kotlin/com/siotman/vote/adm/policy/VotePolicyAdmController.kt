@@ -1,6 +1,9 @@
 package com.siotman.vote.adm.policy
 
 import com.siotman.vote.core.policy.application.VotePolicyWriteService
+import com.siotman.vote.core.common.api.ApiResponse
+import com.siotman.vote.core.common.api.toApiResponse
+import com.siotman.vote.core.common.api.toEmptyApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -23,9 +26,10 @@ class VotePolicyAdmController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "투표 정책 생성")
-    fun create(@RequestBody request: CreateVotePolicyRequest): Mono<VotePolicyResponse> {
+    fun create(@RequestBody request: CreateVotePolicyRequest): Mono<ApiResponse<VotePolicyResponse>> {
         return votePolicyWriteService.create(request.toCommand())
             .map(VotePolicyResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}")
@@ -33,15 +37,16 @@ class VotePolicyAdmController(
     fun update(
         @PathVariable id: Long,
         @RequestBody request: UpdateVotePolicyRequest,
-    ): Mono<VotePolicyResponse> {
+    ): Mono<ApiResponse<VotePolicyResponse>> {
         return votePolicyWriteService.update(request.toCommand(id))
             .map(VotePolicyResponse::from)
+            .toApiResponse()
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "투표 정책 삭제")
-    fun delete(@PathVariable id: Long): Mono<Void> {
+    fun delete(@PathVariable id: Long): Mono<ApiResponse<Unit>> {
         return votePolicyWriteService.delete(id)
+            .toEmptyApiResponse()
     }
 }

@@ -1,6 +1,8 @@
 package com.siotman.vote.adm.campaign
 
 import com.siotman.vote.core.campaign.application.CampaignWriteService
+import com.siotman.vote.core.common.api.ApiResponse
+import com.siotman.vote.core.common.api.toApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -22,23 +24,26 @@ class CampaignAdmController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "캠페인 생성")
-    fun create(@RequestBody request: CreateCampaignRequest): Mono<CampaignResponse> {
+    fun create(@RequestBody request: CreateCampaignRequest): Mono<ApiResponse<CampaignResponse>> {
         return campaignWriteService.create(request.toCommand())
             .map(CampaignResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}/close")
     @Operation(summary = "캠페인 종료")
-    fun close(@PathVariable id: Long): Mono<CampaignResponse> {
+    fun close(@PathVariable id: Long): Mono<ApiResponse<CampaignResponse>> {
         return campaignWriteService.close(id)
             .map(CampaignResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}/activate")
     @Operation(summary = "캠페인 활성화")
-    fun activate(@PathVariable id: Long): Mono<CampaignResponse> {
+    fun activate(@PathVariable id: Long): Mono<ApiResponse<CampaignResponse>> {
         return campaignWriteService.activate(id)
             .map(CampaignResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}")
@@ -46,8 +51,9 @@ class CampaignAdmController(
     fun update(
         @PathVariable id: Long,
         @RequestBody request: UpdateCampaignRequest,
-    ): Mono<CampaignResponse> {
+    ): Mono<ApiResponse<CampaignResponse>> {
         return campaignWriteService.update(request.toCommand(id))
             .map(CampaignResponse::from)
+            .toApiResponse()
     }
 }

@@ -1,6 +1,8 @@
 package com.siotman.vote.adm.voteevent
 
 import com.siotman.vote.core.voteevent.application.VoteEventWriteService
+import com.siotman.vote.core.common.api.ApiResponse
+import com.siotman.vote.core.common.api.toApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -22,9 +24,10 @@ class VoteEventAdmController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "투표 이벤트 생성")
-    fun create(@RequestBody request: CreateVoteEventRequest): Mono<VoteEventResponse> {
+    fun create(@RequestBody request: CreateVoteEventRequest): Mono<ApiResponse<VoteEventResponse>> {
         return voteEventWriteService.create(request.toCommand())
             .map(VoteEventResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}")
@@ -32,22 +35,25 @@ class VoteEventAdmController(
     fun update(
         @PathVariable id: Long,
         @RequestBody request: UpdateVoteEventRequest,
-    ): Mono<VoteEventResponse> {
+    ): Mono<ApiResponse<VoteEventResponse>> {
         return voteEventWriteService.update(request.toCommand(id))
             .map(VoteEventResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}/activate")
     @Operation(summary = "투표 이벤트 활성화")
-    fun activate(@PathVariable id: Long): Mono<VoteEventResponse> {
+    fun activate(@PathVariable id: Long): Mono<ApiResponse<VoteEventResponse>> {
         return voteEventWriteService.activate(id)
             .map(VoteEventResponse::from)
+            .toApiResponse()
     }
 
     @PatchMapping("/{id}/close")
     @Operation(summary = "투표 이벤트 종료")
-    fun close(@PathVariable id: Long): Mono<VoteEventResponse> {
+    fun close(@PathVariable id: Long): Mono<ApiResponse<VoteEventResponse>> {
         return voteEventWriteService.close(id)
             .map(VoteEventResponse::from)
+            .toApiResponse()
     }
 }
