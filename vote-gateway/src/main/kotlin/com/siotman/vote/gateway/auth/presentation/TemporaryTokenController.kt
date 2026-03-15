@@ -67,7 +67,7 @@ class TemporaryTokenController(
         val signer = try {
             MACSigner(issuer.secret.toByteArray())
         } catch (exception: JOSEException) {
-            throw IdentityTranslationException("Cannot initialize JWT signer", exception)
+            throw IdentityTranslationException("JWT 서명을 초기화할 수 없습니다.", exception)
         }
         val jwt = SignedJWT(
             JWSHeader.Builder(issuer.algorithm.jwsAlgorithm).build(),
@@ -76,7 +76,7 @@ class TemporaryTokenController(
         try {
             jwt.sign(signer)
         } catch (exception: JOSEException) {
-            throw IdentityTranslationException("Cannot sign JWT", exception)
+            throw IdentityTranslationException("JWT 서명에 실패했습니다.", exception)
         }
         return jwt.serialize()
     }

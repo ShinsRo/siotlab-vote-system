@@ -28,7 +28,7 @@ class JwtIdentityTranslationService(
         val jwt = try {
             decoders.getValue(issuer).decode(token)
         } catch (exception: Exception) {
-            throw IdentityTranslationException("JWT validation failed", exception)
+            throw IdentityTranslationException("JWT 검증에 실패했습니다.", exception)
         }
 
         return TranslatedIdentity(
@@ -56,13 +56,13 @@ class JwtIdentityTranslationService(
         val claims = try {
             JWTParser.parse(token).jwtClaimsSet
         } catch (exception: Exception) {
-            throw BadJwtException("JWT parse failed", exception)
+            throw BadJwtException("JWT 파싱에 실패했습니다.", exception)
         }
-        return claims.issuer ?: throw IdentityTranslationException("Missing iss claim")
+        return claims.issuer ?: throw IdentityTranslationException("iss 클레임이 없습니다.")
     }
 
     private fun readRequiredClaim(jwt: Jwt, claimName: String): String =
-        readOptionalClaim(jwt, claimName) ?: throw IdentityTranslationException("Missing required claim: $claimName")
+        readOptionalClaim(jwt, claimName) ?: throw IdentityTranslationException("필수 클레임이 없습니다: $claimName")
 
     private fun readOptionalClaim(jwt: Jwt, claimName: String?): String? {
         if (claimName.isNullOrBlank()) {
