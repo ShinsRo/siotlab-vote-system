@@ -11,9 +11,8 @@ data class CreateCampaignRequest(
     val description: String?,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
-    val createdBy: String,
 ) {
-    fun toCommand(): CreateCampaignCommand {
+    fun toCommand(createdBy: String): CreateCampaignCommand {
         return CreateCampaignCommand(
             name = name,
             description = description,

@@ -5,6 +5,10 @@ import java.time.Instant
 /**
  * Identity Translation 레이어가 여러 외부 access token을 읽은 뒤
  * 다운스트림에 전달하기 전에 정규화하는 내부 표준 인증 컨텍스트다.
+ *
+ * principalId는 우리 시스템 내부 사용자 식별자를 의미한다.
+ * 현재 vote-service 쪽 userId 모델은 String 이므로 숫자 ID를 쓰더라도 "101" 같은 문자열로 전달한다.
+ * subject는 외부 issuer가 발급한 원본 주체 식별자를 유지하며, 예를 들면 "issuer-user-1" 같은 값을 가진다.
  */
 data class TranslatedIdentity(
     val version: Int = 1,

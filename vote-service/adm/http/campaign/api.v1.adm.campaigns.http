@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:8089
+@principalId = 1
 @campaignId = 1
 
 ### 캠페인 생성
@@ -6,13 +7,13 @@
 POST {{baseUrl}}/api/v1/adm/campaigns
 Content-Type: application/json
 Accept: application/json
+X-Identity-Principal-Id: {{principalId}}
 
 {
   "name": "2026 봄 정기 선거",
   "description": "학생회 정기 선거 캠페인",
   "startAt": "2026-03-15T09:00:00",
-  "endAt": "2026-03-20T18:00:00",
-  "createdBy": "admin"
+  "endAt": "2026-03-20T18:00:00"
 }
 
 ### 캠페인 수정

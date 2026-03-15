@@ -4,6 +4,7 @@ import com.siotman.vote.gateway.auth.application.IdentityTranslationException
 import com.siotman.vote.gateway.auth.application.JwtIdentityTranslationService
 import com.siotman.vote.gateway.auth.application.TranslatedIdentityHeaders
 import com.siotman.vote.gateway.auth.config.IdentityTranslationProperties
+import com.siotman.vote.gateway.auth.domain.IdentityRole
 import com.siotman.vote.gateway.common.api.ApiResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
@@ -44,6 +45,9 @@ class IdentityTranslationFilter(
         } catch (_: IdentityTranslationException) {
             return unauthorized(exchange, "invalid_access_token")
         }
+        if (path.startsWith(ADM_PATH_PREFIX) && IdentityRole.ADMIN !in translatedIdentity.roles) {
+            return forbidden(exchange, "forbidden")
+        }
 
         val identityHeaders = TranslatedIdentityHeaders.from(
             identity = translatedIdentity,
@@ -71,7 +75,16 @@ class IdentityTranslationFilter(
         return exchange.response.writeWith(Mono.just(buffer))
     }
 
+    private fun forbidden(exchange: ServerWebExchange, code: String): Mono<Void> {
+        exchange.response.statusCode = HttpStatus.FORBIDDEN
+        exchange.response.headers.contentType = MediaType.APPLICATION_JSON
+        val response = ApiResponse.failure(code = code, message = "관리자 권한이 필요합니다.")
+        val buffer = exchange.response.bufferFactory().wrap(objectMapper.writeValueAsBytes(response))
+        return exchange.response.writeWith(Mono.just(buffer))
+    }
+
     private companion object {
         const val BEARER_PREFIX = "Bearer "
+        const val ADM_PATH_PREFIX = "/vote-adm/"
     }
 }

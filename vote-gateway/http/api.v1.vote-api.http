@@ -1,6 +1,5 @@
 @baseUrl = http://localhost:8080
 @authUrl = {{baseUrl}}/auth/token
-@accessToken = replace-with-issued-access-token
 @campaignId = 1
 
 ### 임시 access token 발급
@@ -11,11 +10,14 @@ Accept: application/json
 
 {
   "issuer": "local-dev",
-  "principalId": "user-1",
-  "subject": "user-1",
+  "principalId": "101",
+  "subject": "issuer-user-1",
   "roles": ["user"],
   "scopes": ["vote:read"]
 }
+> {%
+client.global.set("accessToken", response.body.data.accessToken);
+ %}
 
 ### 게이트웨이 경유 캠페인 목록 조회
 # 응답 형태: { "success": true, "data": [...] }

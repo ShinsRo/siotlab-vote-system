@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:8088
+@principalId = 101
 @voteRecordId = 1
 @eventId = 1
 @userId = user-1
@@ -8,11 +9,11 @@
 POST {{baseUrl}}/api/v1/vote-records
 Content-Type: application/json
 Accept: application/json
+X-Identity-Principal-Id: {{principalId}}
 
 {
   "eventId": {{eventId}},
-  "candidateIds": [1, 2],
-  "userId": "{{userId}}"
+  "candidateIds": [1, 2]
 }
 
 ### 투표 기록 단건 조회

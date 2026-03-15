@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:8089
+@principalId = 1
 @voteEventId = 1
 @campaignId = 1
 @policyId = 1
@@ -8,6 +9,7 @@
 POST {{baseUrl}}/api/v1/adm/vote-events
 Content-Type: application/json
 Accept: application/json
+X-Identity-Principal-Id: {{principalId}}
 
 {
   "campaignId": {{campaignId}},
@@ -15,8 +17,7 @@ Accept: application/json
   "name": "학생회장 투표",
   "description": "2026 봄 학생회장 선출",
   "startAt": "2026-03-16T09:00:00",
-  "endAt": "2026-03-20T18:00:00",
-  "createdBy": "admin"
+  "endAt": "2026-03-20T18:00:00"
 }
 
 ### 투표 이벤트 수정

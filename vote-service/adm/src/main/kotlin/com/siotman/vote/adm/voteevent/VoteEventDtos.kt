@@ -13,9 +13,8 @@ data class CreateVoteEventRequest(
     val description: String?,
     val startAt: LocalDateTime,
     val endAt: LocalDateTime,
-    val createdBy: String,
 ) {
-    fun toCommand(): CreateVoteEventCommand {
+    fun toCommand(createdBy: String): CreateVoteEventCommand {
         return CreateVoteEventCommand(
             campaignId = campaignId,
             policyId = policyId,

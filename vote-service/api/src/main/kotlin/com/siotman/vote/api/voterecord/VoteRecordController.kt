@@ -1,5 +1,7 @@
 package com.siotman.vote.api.voterecord
 
+import com.siotman.vote.api.common.web.PRINCIPAL_ID_HEADER
+import com.siotman.vote.api.common.web.requirePrincipalId
 import com.siotman.vote.core.voterecord.application.VoteRecordReadService
 import com.siotman.vote.core.voterecord.application.VoteRecordWriteService
 import com.siotman.vote.core.common.api.ApiResponse
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -28,8 +31,11 @@ class VoteRecordController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "투표 기록 생성")
-    fun create(@RequestBody request: CreateVoteRecordRequest): Mono<ApiResponse<List<VoteRecordResponse>>> {
-        return voteRecordWriteService.create(request.toCommand())
+    fun create(
+        @RequestHeader(name = PRINCIPAL_ID_HEADER, required = false) principalId: String?,
+        @RequestBody request: CreateVoteRecordRequest,
+    ): Mono<ApiResponse<List<VoteRecordResponse>>> {
+        return voteRecordWriteService.create(request.toCommand(userId = requirePrincipalId(principalId)))
             .map(VoteRecordResponse::from)
             .toListApiResponse()
     }
@@ -46,7 +52,7 @@ class VoteRecordController(
     @Operation(summary = "투표 기록 목록 조회")
     fun list(
         @RequestParam eventId: Long,
-        @RequestParam(required = false) userId: String?, // TODO: JWT 에서 subject 추출
+        @RequestParam(required = false) userId: String?, // TODO: JWT 에서 principalId 추출
     ): Mono<ApiResponse<List<VoteRecordResponse>>> {
         val records = if (userId.isNullOrBlank()) {
             voteRecordReadService.getByEventId(eventId)

@@ -37,8 +37,8 @@ class JwtIdentityTranslationServiceTest {
     fun `issuer 클레임을 내부 표준 identity로 정규화한다`() {
         val token = tokenController.issueToken(
             IssueTokenRequest(
-                principalId = "principal-1",
-                subject = "subject-1",
+                principalId = "101",
+                subject = "issuer-user-1",
                 accountId = "account-1",
                 tenantId = "tenant-1",
                 roles = setOf("admin", "member"),
@@ -48,8 +48,8 @@ class JwtIdentityTranslationServiceTest {
 
         val identity = service.translate(token)
 
-        assertThat(identity.principalId).isEqualTo("principal-1")
-        assertThat(identity.subject).isEqualTo("subject-1")
+        assertThat(identity.principalId).isEqualTo("101")
+        assertThat(identity.subject).isEqualTo("issuer-user-1")
         assertThat(identity.accountId).isEqualTo("account-1")
         assertThat(identity.tenantId).isEqualTo("tenant-1")
         assertThat(identity.roles).contains(IdentityRole.ADMIN, IdentityRole.USER)
@@ -111,9 +111,9 @@ class JwtIdentityTranslationServiceTest {
 
         val headers = TranslatedIdentityHeaders.from(
             identity = TranslatedIdentity(
-                principalId = "principal-1",
+                principalId = "101",
                 issuer = "local-dev",
-                subject = "subject-1",
+                subject = "issuer-user-1",
                 roles = setOf(IdentityRole.ADMIN),
                 scopes = setOf("vote:read"),
                 issuedAt = Instant.parse("2026-03-16T00:00:00Z"),
@@ -121,7 +121,7 @@ class JwtIdentityTranslationServiceTest {
             properties = properties,
         )
 
-        assertThat(headers.values).containsEntry("X-Principal-Id", "principal-1")
+        assertThat(headers.values).containsEntry("X-Principal-Id", "101")
         assertThat(headers.values).containsEntry("X-Role-Set", "ADMIN")
         assertThat(headers.values).containsEntry("X-Identity-Issuer", "local-dev")
         assertThat(headers.values).containsEntry("X-Identity-Issued-At", "2026-03-16T00:00:00Z")

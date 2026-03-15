@@ -7,9 +7,8 @@ import java.time.LocalDateTime
 data class CreateVoteRecordRequest(
     val eventId: Long,
     val candidateIds: List<Long>,
-    val userId: String,
 ) {
-    fun toCommand(): CreateVoteRecordCommand {
+    fun toCommand(userId: String): CreateVoteRecordCommand {
         return CreateVoteRecordCommand(
             eventId = eventId,
             candidateIds = candidateIds,

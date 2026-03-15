@@ -1,6 +1,5 @@
 @baseUrl = http://localhost:8080
 @authUrl = {{baseUrl}}/auth/token
-@accessToken = replace-with-issued-access-token
 
 ### 임시 admin access token 발급
 # 응답 형태: { "success": true, "data": { "accessToken": "...", "tokenType": "Bearer", "expiresAt": "..." } }
@@ -10,11 +9,14 @@ Accept: application/json
 
 {
   "issuer": "local-dev",
-  "principalId": "admin-1",
-  "subject": "admin-1",
+  "principalId": "1",
+  "subject": "issuer-admin-1",
   "roles": ["admin"],
   "scopes": ["vote:write"]
 }
+> {%
+client.global.set("accessToken", response.body.data.accessToken);
+ %}
 
 ### 게이트웨이 경유 관리자용 캠페인 생성
 # 응답 형태: { "success": true, "data": { ... } }

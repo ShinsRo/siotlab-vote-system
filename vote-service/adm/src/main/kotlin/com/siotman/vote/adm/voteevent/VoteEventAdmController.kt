@@ -1,5 +1,7 @@
 package com.siotman.vote.adm.voteevent
 
+import com.siotman.vote.adm.common.web.PRINCIPAL_ID_HEADER
+import com.siotman.vote.adm.common.web.requirePrincipalId
 import com.siotman.vote.core.voteevent.application.VoteEventWriteService
 import com.siotman.vote.core.common.api.ApiResponse
 import com.siotman.vote.core.common.api.toApiResponse
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
@@ -24,8 +27,11 @@ class VoteEventAdmController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "투표 이벤트 생성")
-    fun create(@RequestBody request: CreateVoteEventRequest): Mono<ApiResponse<VoteEventResponse>> {
-        return voteEventWriteService.create(request.toCommand())
+    fun create(
+        @RequestHeader(name = PRINCIPAL_ID_HEADER, required = false) principalId: String?,
+        @RequestBody request: CreateVoteEventRequest,
+    ): Mono<ApiResponse<VoteEventResponse>> {
+        return voteEventWriteService.create(request.toCommand(createdBy = requirePrincipalId(principalId)))
             .map(VoteEventResponse::from)
             .toApiResponse()
     }
