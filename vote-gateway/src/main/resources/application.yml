@@ -4,9 +4,6 @@ server:
 spring:
   application:
     name: vote-gateway
-  docker.compose:
-    file: docker-local/compose.yaml
-    lifecycle-management: start-only
   cloud.gateway:
       server.webflux:
           routes:

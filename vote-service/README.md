@@ -15,7 +15,7 @@ WebFlux + R2DBC 기반의 투표 도메인 서비스다. 전체 저장소는 학
 MySQL만 필요한 경우:
 
 ```bash
-docker compose -f docker-local/compose.yaml up -d
+../scripts/dev-up.sh service
 ```
 
 애플리케이션 실행:
@@ -25,14 +25,14 @@ docker compose -f docker-local/compose.yaml up -d
 ./gradlew :adm:bootRun
 ```
 
-`api`, `adm` 모두 기본적으로 `docker-local/compose.yaml`을 참고해 로컬 MySQL과 연결한다.
+`api`, `adm` 모두 기본적으로 `localhost:3306`의 로컬 MySQL과 연결한다.
 
 ## 도커 이미지 빌드
 
 Dockerfile 방식:
 
 ```bash
-./scripts/build-images.sh
+../scripts/build-images.sh service
 ```
 
 생성 이미지:
@@ -56,4 +56,4 @@ Gradle 방식:
 - 위치: `api/src/main/resources/db/migration`
 
 ## 참고
-- 로컬 compose 파일: [docker-local/compose.yaml](/Users/ssk/Projects/siolab-vote-system/vote-service/docker-local/compose.yaml)
+- 루트 compose 파일: [docker/compose.yaml](/Users/ssk/Projects/siolab-vote-system/docker/compose.yaml)

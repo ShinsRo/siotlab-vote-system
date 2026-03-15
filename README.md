@@ -9,13 +9,17 @@
 ## 저장소 구조
 ```text
 siolab-vote-system
+├── docker/
+│   └── compose.yaml
+├── scripts/
+│   ├── build-images.sh
+│   ├── dev-up.sh
+│   └── dev-down.sh
 ├── vote-gateway/
 │   ├── README.md
-│   ├── docker-local/
 │   └── http/
 ├── vote-service/
 │   ├── README.md
-│   ├── docker-local/
 │   ├── adm/
 │   ├── api/
 │   └── core/
@@ -23,10 +27,18 @@ siolab-vote-system
 ```
 
 ## 로컬 개발 흐름
-1. `vote-service` 이미지를 빌드한다.
-2. `vote-gateway`를 `bootRun`으로 실행한다.
-3. `vote-gateway`가 `docker-local/compose.yaml`을 통해 `mysql`, `vote-api`, `vote-adm`를 함께 올린다.
+게이트웨이 개발:
+1. `./scripts/build-images.sh service`로 `vote-service` 이미지를 빌드한다.
+2. `./scripts/dev-up.sh`로 `mysql`, `vote-api`, `vote-adm`를 올린다.
+3. `vote-gateway`를 `bootRun`으로 실행한다.
 4. 게이트웨이 `8080` 포트로 API를 호출한다.
+
+서비스 개발:
+1. `./scripts/dev-up.sh service`로 `mysql`만 올린다.
+2. `vote-service`의 `api`, `adm` 중 필요한 앱을 `bootRun`으로 실행한다.
+
+종료:
+1. `./scripts/dev-down.sh`
 
 ## 문서
 - [vote-service/README.md](/Users/ssk/Projects/siolab-vote-system/vote-service/README.md)

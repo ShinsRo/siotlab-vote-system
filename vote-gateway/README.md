@@ -4,7 +4,7 @@ Spring Cloud Gateway 기반 API 게이트웨이 프로젝트다. 토이 프로�
 
 ## 역할
 - `vote-api`, `vote-adm` 라우팅
-- 로컬 개발 시 의존 서비스 compose 기동
+- 로컬 개발 시 의존 서비스와의 프록시/인증 흐름 검증
 - 추후 인증/인가, 공통 필터, 레이트 리미팅 확장
 
 ## 포트
@@ -12,16 +12,18 @@ Spring Cloud Gateway 기반 API 게이트웨이 프로젝트다. 토이 프로�
 
 ## 로컬 실행
 ```bash
+../scripts/dev-up.sh
 ./gradlew bootRun
 ```
 
-실행 시 `docker-local/compose.yaml`을 통해 아래 서비스가 함께 올라간다.
+사전에 아래 서비스가 함께 올라가야 한다.
 - `mysql`
 - `vote-api`
 - `vote-adm`
 
 전제:
 - `vote-api`, `vote-adm` 이미지는 미리 빌드돼 있어야 한다.
+- 이미지 빌드: `../scripts/build-images.sh service`
 
 ## 라우트
 - `/vote-api/**` -> `vote-api`
@@ -32,7 +34,7 @@ Spring Cloud Gateway 기반 API 게이트웨이 프로젝트다. 토이 프로�
 - `VOTE_ADM_URI=http://localhost:8089`
 
 ## 개발용 파일
-- compose: [docker-local/compose.yaml](/Users/ssk/Projects/siolab-vote-system/vote-gateway/docker-local/compose.yaml)
+- 루트 compose: [docker/compose.yaml](/Users/ssk/Projects/siolab-vote-system/docker/compose.yaml)
 - HTTP 예제: [http/api.v1.vote-api.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/api.v1.vote-api.http)
 - HTTP 예제: [http/api.v1.vote-adm.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/api.v1.vote-adm.http)
 - actuator 예제: [http/actuator.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/actuator.http)

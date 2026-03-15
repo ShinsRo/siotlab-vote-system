@@ -1,4 +1,4 @@
-name: vote-gateway-local
+name: siolab-vote-system-local
 
 services:
   mysql:
@@ -19,6 +19,7 @@ services:
 
   vote-api:
     image: vote-api
+    profiles: ["gateway"]
     ports:
       - "8088:8088"
     environment:
@@ -37,6 +38,7 @@ services:
 
   vote-adm:
     image: vote-adm
+    profiles: ["gateway"]
     ports:
       - "8089:8089"
     environment:
