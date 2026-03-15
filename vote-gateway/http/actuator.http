@@ -1,9 +1,11 @@
 @baseUrl = http://localhost:8080
 
 ### 게이트웨이 헬스 체크
+# 응답 형태: Spring Boot actuator health payload
 GET {{baseUrl}}/mgmt/health
 Accept: application/json
 
 ### 게이트웨이 라우트 목록 확인
+# 응답 형태: Spring Cloud Gateway actuator payload
 GET {{baseUrl}}/mgmt/gateway/routes
 Accept: application/json

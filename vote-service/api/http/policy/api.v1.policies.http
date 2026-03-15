@@ -2,9 +2,11 @@
 @policyId = 1
 
 ### 투표 정책 목록 조회
+# 응답 형태: { "success": true, "data": [...] }
 GET {{baseUrl}}/api/v1/policies
 Accept: application/json
 
 ### 투표 정책 단건 조회
+# 응답 형태: { "success": true, "data": { ... } }
 GET {{baseUrl}}/api/v1/policies/{{policyId}}
 Accept: application/json

@@ -4,8 +4,10 @@
 @userId = user-1
 
 ### 투표 기록 생성
+# 응답 형태: { "success": true, "data": [...] }
 POST {{baseUrl}}/api/v1/vote-records
 Content-Type: application/json
+Accept: application/json
 
 {
   "eventId": {{eventId}},
@@ -14,13 +16,16 @@ Content-Type: application/json
 }
 
 ### 투표 기록 단건 조회
+# 응답 형태: { "success": true, "data": { ... } }
 GET {{baseUrl}}/api/v1/vote-records/{{voteRecordId}}
 Accept: application/json
 
 ### 이벤트 기준 투표 기록 조회
+# 응답 형태: { "success": true, "data": [...] }
 GET {{baseUrl}}/api/v1/vote-records?eventId={{eventId}}
 Accept: application/json
 
 ### 이벤트와 사용자 기준 투표 기록 조회
+# 응답 형태: { "success": true, "data": [...] }
 GET {{baseUrl}}/api/v1/vote-records?eventId={{eventId}}&userId={{userId}}
 Accept: application/json

@@ -2,8 +2,10 @@
 @candidateId = 1
 
 ### 후보 생성
+# 응답 형태: { "success": true, "data": { ... } }
 POST {{baseUrl}}/api/v1/adm/candidates
 Content-Type: application/json
+Accept: application/json
 
 {
   "name": "김후보",
@@ -12,8 +14,10 @@ Content-Type: application/json
 }
 
 ### 후보 수정
+# 응답 형태: { "success": true, "data": { ... } }
 PATCH {{baseUrl}}/api/v1/adm/candidates/{{candidateId}}
 Content-Type: application/json
+Accept: application/json
 
 {
   "name": "김후보 수정",
@@ -22,4 +26,6 @@ Content-Type: application/json
 }
 
 ### 후보 삭제
+# 응답 형태: { "success": true, "data": null } 또는 data 생략
 DELETE {{baseUrl}}/api/v1/adm/candidates/{{candidateId}}
+Accept: application/json

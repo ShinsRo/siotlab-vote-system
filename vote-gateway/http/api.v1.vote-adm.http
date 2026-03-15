@@ -1,9 +1,27 @@
 @baseUrl = http://localhost:8080
+@authUrl = {{baseUrl}}/auth/token
+@accessToken = replace-with-issued-access-token
+
+### 임시 admin access token 발급
+# 응답 형태: { "success": true, "data": { "accessToken": "...", "tokenType": "Bearer", "expiresAt": "..." } }
+POST {{authUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "issuer": "local-dev",
+  "principalId": "admin-1",
+  "subject": "admin-1",
+  "roles": ["admin"],
+  "scopes": ["vote:write"]
+}
 
 ### 게이트웨이 경유 관리자용 캠페인 생성
+# 응답 형태: { "success": true, "data": { ... } }
 POST {{baseUrl}}/vote-adm/api/v1/adm/campaigns
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "name": "2026 학생회장 선거",

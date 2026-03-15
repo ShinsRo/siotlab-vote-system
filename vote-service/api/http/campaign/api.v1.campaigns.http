@@ -2,9 +2,11 @@
 @campaignId = 1
 
 ### 캠페인 목록 조회
+# 응답 형태: { "success": true, "data": [...] }
 GET {{baseUrl}}/api/v1/campaigns
 Accept: application/json
 
 ### 캠페인 단건 조회
+# 응답 형태: { "success": true, "data": { ... } }
 GET {{baseUrl}}/api/v1/campaigns/{{campaignId}}
 Accept: application/json

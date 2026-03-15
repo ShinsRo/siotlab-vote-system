@@ -2,9 +2,11 @@
 @candidateId = 1
 
 ### 후보 목록 조회
+# 응답 형태: { "success": true, "data": [...] }
 GET {{baseUrl}}/api/v1/candidates
 Accept: application/json
 
 ### 후보 단건 조회
+# 응답 형태: { "success": true, "data": { ... } }
 GET {{baseUrl}}/api/v1/candidates/{{candidateId}}
 Accept: application/json
