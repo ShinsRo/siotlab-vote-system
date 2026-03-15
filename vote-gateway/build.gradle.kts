@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.webflux)
     implementation(libs.spring.cloud.starter.gateway.server.webflux)
+    implementation(libs.spring.security.oauth2.jose)
     implementation(libs.jackson.module.kotlin)
 
     if (isMacOs()) {

@@ -33,3 +33,36 @@ management:
     health:
       probes:
         enabled: true
+
+identity:
+  translation:
+    public-path-prefixes:
+      - /mgmt
+      - /auth/token
+    forward-authorization-header: false
+    headers:
+      principal-id: X-Identity-Principal-Id
+      account-id: X-Identity-Account-Id
+      issuer: X-Identity-Issuer
+      subject: X-Identity-Subject
+      roles: X-Identity-Roles
+      scopes: X-Identity-Scopes
+      tenant-id: X-Identity-Tenant-Id
+      token-id: X-Identity-Token-Id
+      issued-at: X-Identity-Issued-At
+      expires-at: X-Identity-Expires-At
+    issuers:
+      # local-dev는 게이트웨이 내부 개발용 샘플 issuer다.
+      # 다양한 외부 인증처의 claim을 이 표준 스키마로 번역하는 기준점으로 사용한다.
+      - issuer: local-dev
+        secret: local-dev-signing-secret-local-dev-signing-secret
+        algorithm: HS256
+        principal-claim: uid
+        subject-claim: sub
+        account-id-claim: account_id
+        roles-claim: roles
+        scopes-claim: scope
+        tenant-id-claim: tenant_id
+        admin-role-names:
+          - admin
+          - ROLE_ADMIN
