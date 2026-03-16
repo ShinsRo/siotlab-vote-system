@@ -30,7 +30,6 @@ flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
 mysql-connector-j = { module = "com.mysql:mysql-connector-j" }
 r2dbc-mysql = { module = "io.asyncer:r2dbc-mysql" }
-spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "spring-boot" }
 
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }
