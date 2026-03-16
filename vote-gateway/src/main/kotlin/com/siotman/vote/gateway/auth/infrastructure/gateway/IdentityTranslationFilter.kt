@@ -6,7 +6,7 @@ import com.siotman.vote.gateway.auth.application.TranslatedIdentityHeaders
 import com.siotman.vote.gateway.auth.config.IdentityTranslationProperties
 import com.siotman.vote.gateway.auth.domain.IdentityRole
 import com.siotman.vote.gateway.common.api.ApiResponse
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.cloud.gateway.filter.GlobalFilter
 import org.springframework.core.Ordered

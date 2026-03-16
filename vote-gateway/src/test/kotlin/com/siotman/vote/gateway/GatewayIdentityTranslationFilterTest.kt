@@ -4,6 +4,7 @@ package com.siotman.vote.gateway
 
 import com.siotman.vote.gateway.auth.presentation.IssueTokenRequest
 import org.junit.jupiter.api.Test
+import org.springframework.http.MediaType
 import java.util.concurrent.atomic.AtomicReference
 
 class GatewayIdentityTranslationFilterTest : AbstractGatewayIntegrationTest() {
@@ -28,6 +29,30 @@ class GatewayIdentityTranslationFilterTest : AbstractGatewayIntegrationTest() {
                     principalId = "principal-1",
                     roles = setOf("admin"),
                 ),
+            )
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.success").isEqualTo(true)
+            .jsonPath("$.data.accessToken").isNotEmpty
+            .jsonPath("$.data.tokenType").isEqualTo("Bearer")
+    }
+
+    @Test
+    fun `임시 토큰 발급 엔드포인트는 raw json 요청도 처리한다`() {
+        webTestClient.post()
+            .uri("/auth/token")
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(
+                """
+                {
+                  "issuer": "local-dev",
+                  "principalId": "101",
+                  "subject": "issuer-user-1",
+                  "roles": ["user"],
+                  "scopes": ["vote:read"]
+                }
+                """.trimIndent().toByteArray(),
             )
             .exchange()
             .expectStatus().isOk

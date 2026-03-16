@@ -27,6 +27,8 @@ management:
       exposure:
         include: health,info,metrics,gateway
   endpoint:
+    gateway:
+      access: read-only
     health:
       probes:
         enabled: true

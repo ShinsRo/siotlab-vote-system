@@ -30,6 +30,7 @@ dependencies {
     implementation(libs.spring.cloud.starter.gateway.server.webflux)
     implementation(libs.spring.security.oauth2.jose)
     implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlin.reflect)
 
     if (isMacOs()) {
         runtimeOnly(libs.netty.resolver.dns.native.macos) {
@@ -38,8 +39,6 @@ dependencies {
             }
         }
     }
-    developmentOnly(libs.spring.boot.docker.compose)
-
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.assertj.core)
     testImplementation(libs.reactor.test)

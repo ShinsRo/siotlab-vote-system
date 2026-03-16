@@ -1,5 +1,7 @@
 package com.siotman.vote.gateway.auth.presentation
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.nimbusds.jose.JOSEException
 import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jose.crypto.MACSigner
@@ -82,14 +84,23 @@ class TemporaryTokenController(
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class IssueTokenRequest(
+    @JsonProperty("issuer")
     val issuer: String = "local-dev",
+    @JsonProperty("principalId")
     val principalId: String,
+    @JsonProperty("subject")
     val subject: String? = null,
+    @JsonProperty("accountId")
     val accountId: String? = null,
+    @JsonProperty("tenantId")
     val tenantId: String? = null,
+    @JsonProperty("roles")
     val roles: Set<String> = emptySet(),
+    @JsonProperty("scopes")
     val scopes: Set<String> = emptySet(),
+    @JsonProperty("expiresInSeconds")
     val expiresInSeconds: Long = 3600,
 )
 
