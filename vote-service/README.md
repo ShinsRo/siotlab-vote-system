@@ -56,4 +56,4 @@ Gradle 방식:
 - 위치: `api/src/main/resources/db/migration`
 
 ## 참고
-- 루트 compose 파일: [docker/compose.yaml](/Users/ssk/Projects/siolab-vote-system/docker/compose.yaml)
+- 루트 compose 파일: [docker/compose.yaml](../docker/compose.yaml)

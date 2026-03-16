@@ -41,5 +41,5 @@ siolab-vote-system
 1. `./scripts/dev-down.sh`
 
 ## 문서
-- [vote-service/README.md](/Users/ssk/Projects/siolab-vote-system/vote-service/README.md)
-- [vote-gateway/README.md](/Users/ssk/Projects/siolab-vote-system/vote-gateway/README.md)
+- [vote-service/README.md](vote-service/README.md)
+- [vote-gateway/README.md](vote-gateway/README.md)

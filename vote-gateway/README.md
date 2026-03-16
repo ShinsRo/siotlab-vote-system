@@ -34,10 +34,10 @@ Spring Cloud Gateway 기반 API 게이트웨이 프로젝트다. 토이 프로�
 - `VOTE_ADM_URI=http://localhost:8089`
 
 ## 개발용 파일
-- 루트 compose: [docker/compose.yaml](/Users/ssk/Projects/siolab-vote-system/docker/compose.yaml)
-- HTTP 예제: [http/api.v1.vote-api.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/api.v1.vote-api.http)
-- HTTP 예제: [http/api.v1.vote-adm.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/api.v1.vote-adm.http)
-- actuator 예제: [http/actuator.http](/Users/ssk/Projects/siolab-vote-system/vote-gateway/http/actuator.http)
+- 루트 compose: [docker/compose.yaml](../docker/compose.yaml)
+- HTTP 예제: [http/api.v1.vote-api.http](http/api.v1.vote-api.http)
+- HTTP 예제: [http/api.v1.vote-adm.http](http/api.v1.vote-adm.http)
+- actuator 예제: [http/actuator.http](http/actuator.http)
 
 ## TODO
 - JWT/OAuth2 인증 방식 확정
